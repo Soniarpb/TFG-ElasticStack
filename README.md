@@ -1,5 +1,5 @@
 # TFG-ElasticStack
-Repositorio con todos los archivos y datos utilizados para mi proyecto TFG
+Repositorio con todos los archivos y datos utilizados para el proyecto TFG **__Explotación de datos biomédicos a través de la herramienta Elastic Stack__**
 
 #### Herramientas necesarias y utilizadas
   - Sistema operativo Centos7
