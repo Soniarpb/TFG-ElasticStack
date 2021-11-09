@@ -1,6 +1,11 @@
 # TFG-ElasticStack
 Repositorio con todos los archivos y datos utilizados para el proyecto TFG **__Explotación de datos biomédicos a través de la herramienta Elastic Stack__**
 Este despliegue se ha realizado modificando un git ya existente que podeis encontrar en https://github.com/deviantony/docker-elk.git. Este git ha sido adaptado y modificado en varios puntos para adaptarlo a nuestras necesidades, simulando un cluster completo de 3 nodos de Elasticsearch.
+Así mismo, los datos utilizados para la explotación provienen a su vez de:
+  - Datos hospitales y centros sanitarios: https://www.mscbs.gob.es/estadEstudios/estadisticas/sisInfSanSNS/ofertaRecursos.htm
+  - Datos Covid19: https://github.com/owid/covid-19-data
+  - Datos Cancer: https://portal.gdc.cancer.gov/repository
+
 
 #### Herramientas necesarias y utilizadas
   - Sistema operativo basado en Linux (En nuestro caso Centos7)
@@ -167,6 +172,3 @@ Las visualizaciones que tendremos serán similares a las siguientes:
 ###### CANCER DASHBOARDS
 ![Dashboard Cancer general](https://github.com/Soniarpb/TFG-ElasticStack/blob/main/Imagenes-readme/dashboard%20cancer%20general.png)
 ![Dashboard Cancer concreto](https://github.com/Soniarpb/TFG-ElasticStack/blob/main/Imagenes-readme/dashboard%20cancer%20concreto.png)
-
-#### MENCIONES
-Este despliegue se ha realizado modificando un git ya existente que podeis encontrar en https://github.com/deviantony/docker-elk.git
