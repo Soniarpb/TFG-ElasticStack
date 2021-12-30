@@ -132,7 +132,8 @@ docker stop docker-elk_logstash_1
 Pasado un tiempo, Elasticsearch y Kibana habran arrancado. Podemos comprobar que todo está bien desde uno de los nodos de Elasticsearh http://localhost:9200/ 
   - Nombre de usuario: elastic
   - Contraseña: changeme
-Tras esto accederemos a Kibana en el http://localhost:5601/ con las mismas credenciales y pasaremos a cargar los templates y políticas de trotado desde el Dev Tools, copiando los ficheros json y dándoles al play
+
+Tras esto accederemos a Kibana en el http://localhost:5601/ con las mismas credenciales y pasaremos a cargar los templates y políticas de rotado desde el Dev Tools, copiando los ficheros json y dándoles al play
 
 ![Dev Tools](https://github.com/Soniarpb/TFG-ElasticStack/blob/main/Imagenes-readme/DevTools.png)
 
