@@ -17,7 +17,7 @@ Así mismo, los datos utilizados para la explotación provienen a su vez de:
 #### Organización del repositorio
 En el repositorio encontramos por un lado la carpeta **_docker-elk_**. Esta carpeta contiene todo lo necesario para arrrancar con docker un entorno con Elasticsearch, Logstash, Filebeat y Kibana.
 
-Por otro lado, podemos encontrar una carpeta denominada **_dashboads y templates_**. Esta carpeta se subdivide a su vez en tres y separa los ficheros necesarios para la configuración, así como los datos usados y visualizaciones de Kibana.
+Por otro lado, podemos encontrar una carpeta denominada **_dashboads y templates_**. Esta carpeta contine por un lado ficheros json de los dashboards y las visualizaciones así como los templates o políticas de ilm utilizadas.
 
 ```bash
   ├── .git
@@ -65,7 +65,6 @@ Por otro lado, podemos encontrar una carpeta denominada **_dashboads y templates
   ├   ├── docker-stack.yml
   ├   └── docker-compose.yml
   └── dashboards y templates
-      ├── pipelines.yml
       ├── Cancer
       ├   ├── dashboards y visualizaciones
       ├   ├   └── dashboard_cancer.json
@@ -92,6 +91,7 @@ Por otro lado, podemos encontrar una carpeta denominada **_dashboads y templates
 
 #### Instalación y despliegue inicial
 En primer lugar, deberemos preparar el entorno instalando docker y docker compose en la máquina donde vayamos a desplegar nuestro entorno de prueba.
+En el caso de que se trabaje con una VDI, será necesario ponerle al menos 8GB de memoria.
 Es importante recalcar, que pese a que en esta prueba se lanza todo como servicios dockerizados sobre una misma máquina, en un entorno real esto se haría sobre distintas.
 
 Para instalar docker lanzaremos el siguientes comando (sobre Centos7):
@@ -99,7 +99,7 @@ Para instalar docker lanzaremos el siguientes comando (sobre Centos7):
 yum install docker
 ```
 
-Para instalar docker-compose, tendremos que instalar curl previamente, descargárnos el binario, asignarle permisos de ejecución y finalmente generar un enlace simbólico.
+Para instalar docker-compose usaremos curl, por lo que lo instalaremos previamente. Después descargámos el binario, le asignamos permisos de ejecución y finalmente generamos un enlace simbólico.
 ```bash
 yum install curl
 curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -114,8 +114,7 @@ docker-compose --version
 ```
 Una vez finalizados estos requerimientos previos, pasaremos a descargarnos el repositorio git, con el que desplegaremos nuestro entorno completo.
 ```bash
-docker --version
-docker-compose --version
+git clone https://github.com/Soniarpb/TFG-ElasticStack.git
 ```
 
 Dado que el git que se adjunta tiene todos los ficheros guardados en su lugar solo habrá que lanzarlo para desplegarlo.
@@ -127,11 +126,18 @@ Sin embargo, debemos parar el contenedor de Logstash para cargar los templates y
 ```bash
 docker stop docker-elk_logstash_1
 ```
+
+Es posible que tengamos que modificar uno de los parámetros que vienen por defecto en elasticsearch, si obtenemos un mensaje de error relacionado con la memoria y te pide que aumente el vm.max_map_count, ejecuta la siguiente línea
+```bash
+sudo sysctl -w vm.max_map_count=262144
+```
+
 Pasado un tiempo, Elasticsearch y Kibana habran arrancado. Podemos comprobar que todo está bien desde uno de los nodos de Elasticsearh http://localhost:9200/ 
   - Nombre de usuario: elastic
   - Contraseña: changeme
 
-Tras esto accederemos a Kibana en el http://localhost:5601/ con las mismas credenciales y pasaremos a cargar los templates y políticas de rotado desde el Dev Tools, copiando los ficheros json y dándoles al play
+Tras esto accederemos a Kibana en el http://localhost:5601/ con las mismas credenciales y pasaremos a cargar los templates y políticas de rotado desde el Dev Tools, copiando los ficheros json y dándoles al play.
+En este punto también es posible crear espacios y usuarios. Sino por defecto con el usuario elastic (admin), tendremos acceso a todo.
 
 ![Dev Tools](https://github.com/Soniarpb/TFG-ElasticStack/blob/main/Imagenes-readme/DevTools.png)
 
