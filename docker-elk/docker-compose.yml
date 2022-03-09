@@ -1,0 +1,157 @@
+version: '3.2'
+
+services:
+  es01:
+    build:
+      context: elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    container_name: es01
+    volumes:
+      - type: bind
+        source: ./elasticsearch/config/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: volume
+        source: elasticsearch
+        target: /usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      node.name: es01
+      ES_JAVA_OPTS: "-Xmx4g -Xms4g"
+      ELASTIC_PASSWORD: changeme
+      discovery.seed_hosts: es02,es03
+      cluster.initial_master_nodes: es01,es02,es03
+    networks:
+      - elk
+
+  es02:
+    build:
+      context: elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    container_name: es02
+    volumes:
+      - type: bind
+        source: ./elasticsearch/config/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: volume
+        source: elasticsearch
+        target: /usr/share/elasticsearch/data
+    ports:
+      - "9201:9200"
+      - "9301:9300"
+    environment:
+      node.name: es02
+      ES_JAVA_OPTS: "-Xmx4g -Xms4g"
+      ELASTIC_PASSWORD: changeme
+      discovery.seed_hosts: es01,es03
+      cluster.initial_master_nodes: es01,es02,es03
+    networks:
+      - elk
+
+  es03:
+    build:
+      context: elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    container_name: es03
+    volumes:
+      - type: bind
+        source: ./elasticsearch/config/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: volume
+        source: elasticsearch
+        target: /usr/share/elasticsearch/data
+    ports:
+      - "9202:9200"
+      - "9302:9300"
+    environment:
+      node.name: es03
+      ES_JAVA_OPTS: "-Xmx4g -Xms4g"
+      ELASTIC_PASSWORD: changeme
+      discovery.seed_hosts: es01,es02
+      cluster.initial_master_nodes: es01,es02,es03
+    networks:
+      - elk
+
+  logstash:
+    build:
+      context: logstash/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    container_name: lg01
+    volumes:
+      - type: bind
+        source: ./logstash/config/logstash.yml
+        target: /usr/share/logstash/config/logstash.yml
+        read_only: true
+      - type: bind
+        source: ./logstash/config/jvm.options
+        target: /usr/share/logstash/config/jvm.options
+        read_only: true
+      - type: bind
+        source: ./logstash/pipeline
+        target: /usr/share/logstash/pipeline
+        read_only: true
+    ports:
+      - "5044:5044"
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx2g -Xms2g"
+    networks:
+      - elk
+    depends_on:
+      - es01
+      - es02
+      - es03
+
+  kibana:
+    build:
+      context: kibana/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    container_name: kb01
+    volumes:
+      - type: bind
+        source: ./kibana/config/kibana.yml
+        target: /usr/share/kibana/config/kibana.yml
+        read_only: true
+    ports:
+      - "5601:5601"
+    networks:
+      - elk
+    depends_on:
+      - es01
+      - es02
+      - es03
+
+  filebeat:
+    build:
+      context: filebeat/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    container_name: fl01
+    volumes:
+      - type: bind
+        source: ./filebeat/filebeat.yml
+        target: /usr/share/filebeat/filebeat.yml
+        read_only: true
+    networks:
+      - elk
+    depends_on:
+      - logstash
+
+
+networks:
+  elk:
+    driver: bridge
+
+volumes:
+  elasticsearch:

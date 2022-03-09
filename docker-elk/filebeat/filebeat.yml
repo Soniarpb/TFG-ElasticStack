@@ -1,0 +1,33 @@
+filebeat.inputs:
+- type: httpjson
+  config_version: 2
+  interval: 24h
+  request.url: https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.json
+  processors:
+    - decode_json_fields:
+        fields: ["message"]
+        target: "json"
+
+## WGET LO DESCARGA MAL Y NO SE POR QUE....
+#  - paths:
+#    - 'data/owid-covid-latest.json'
+#    fields_under_root: true
+#    fields:
+#      tags: ['json']
+
+
+
+output.logstash:
+  hosts: ["lg01:5044"]
+
+logging.level: DEBUG
+
+#output.elasticsearch:
+#  hosts: ["es01:9200", "es02:9200"]
+#  username: elastic
+#  password: changeme
+#  index: "esto_es_una_prueba"
+#  index: "%{[@metadata][beat]}-%{[@metadata][version]}"
+
+#setup.template.name: "esto_es_una_prueba"
+#setup.template.pattern: "esto_es_una_prueba*"
