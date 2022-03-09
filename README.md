@@ -24,48 +24,46 @@ Por otro lado, podemos encontrar una carpeta denominada **_dashboads y templates
   ├── README.md
   ├── docker-elk
   ├   ├── .git ...
-  ├   ├── .env
   ├   ├── .github ...
+  ├   ├── .env
   ├   ├── .gitattributes
   ├   ├── .dockerignore
+  ├   ├── filebeat
+  ├   ├   ├── Dockerfile
+  ├   ├   └── filebeat.yml
+  ├   ├── logstash
+  ├   ├   ├── Dockerfile
+  ├   ├   ├── config
+  ├   ├   ├   ├── jvm.options
+  ├   ├   ├   └── logstash.yml
+  ├   ├   └── pipeline
+  ├   ├       ├── pipelines.yml
+  ├   ├       ├── cancer_pipeline.conf
+  ├   ├       ├── covid_pipeline.conf
+  ├   ├       ├── hospitales_pipeline.conf
+  ├   ├       └── data
+  ├   ├           ├── CANCER
+  ├   ├           ├   ├── clinical.tsv
+  ├   ├           ├   ├── exposure.tsv
+  ├   ├           ├   └── family_hitory.tsv
+  ├   ├           ├── COVID
+  ├   ├           ├   └── covid-data-2022-03-09.csv
+  ├   ├           └── HOSPITALES
+  ├   ├               ├── centros_C1.csv
+  ├   ├               ├── centros_E.csv
+  ├   ├               └── CNH-2020.csv
+  ├   ├── elasticsearch
+  ├   ├   ├── Dockerfile
+  ├   ├   └── config
+  ├   ├       └── elasticsearch.yml
+  ├   ├── kibana
+  ├   ├   ├── Dockerfile
+  ├   ├   └── config
+  ├   ├       └── kibana.yml
   ├   ├── LICENSE
   ├   ├── README.md
   ├   ├── docker-stack.yml
-  ├   ├── docker-compose.yml
-  ├── bash_script
-  ├   ├── script.sh
-  ├── filebeat
-  ├   ├── Dockerfile
-  ├   └── filebeat.yml
-  ├── logstash
-  ├   ├── Dockerfile
-  ├   ├── config
-  ├   ├   ├── jvm.options
-  ├   ├   └── logstash.yml
-  ├   └── pipeline
-  ├       ├── pipelines.yml
-  ├       ├── cancer_pipeline.conf
-  ├       ├── covid_pipeline.conf
-  ├       ├── hospitales_pipeline.conf
-  ├       ├── hospitales_merge_pipeline.conf
-  ├       └── data
-  ├           ├── CANCER
-  ├           ├   ├── clinical.tsv
-  ├           ├   ├── exposure.tsv
-  ├           ├   └── family_hitory.tsv
-  ├           ├── COVID
-  ├           └── HOSPITALES
-  ├               ├── centros_C1.csv
-  ├               ├── centros_E.csv
-  ├               └── CNH-2020.csv
-  ├── elasticsearch
-  ├   ├── Dockerfile
-  ├   └── config
-  ├       └── elasticsearch.yml
-  ├── kibana
-  ├   ├── Dockerfile
-  ├   └── config
-  ├       └── kibana.yml
+  ├   └── docker-compose.yml
   └── dashboards y templates
       ├── pipelines.yml
       ├── Cancer
