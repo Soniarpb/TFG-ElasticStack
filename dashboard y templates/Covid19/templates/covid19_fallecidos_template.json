@@ -1,0 +1,289 @@
+PUT _template/covid19_fallecimientos_template
+{
+  "index_patterns": [
+    "covid19_fallecimientos*"
+  ],
+  "settings": {
+    "index": {
+      "number_of_shards": "1",
+      "number_of_replicas": "0"
+    }
+  },
+  "mappings" : {
+  "dynamic_templates": [
+    {
+      "message_field": {
+        "path_match": "message",
+        "match_mapping_type": "string",
+        "mapping": {
+          "norms": false,
+          "type": "text"
+        }
+      }
+    },
+    {
+      "string_fields": {
+        "match": "*",
+        "match_mapping_type": "string",
+        "mapping": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        }
+      }
+    }
+  ],
+    "properties" : {
+      "@timestamp" : {
+        "type" : "date"
+      },
+      "@version" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "continente" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "evento" : {
+        "properties" : {
+          "actualizado" : {
+            "type" : "date"
+          }
+        }
+      },
+      "host" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "identificador" : {
+        "type" : "keyword"
+      },
+      "informacion" : {
+        "properties" : {
+          "camas_porcentaje" : {
+            "type" : "long"
+          },
+          "densidad_poblacion" : {
+            "type" : "long"
+          },
+          "dosis_vacunas_diarias" : {
+            "type" : "long"
+          },
+          "dosis_vacunas_diarias_suavizado" : {
+            "type" : "long"
+          },
+          "dosis_vacunas_diarias_por_millon" : {
+            "type" : "long"
+          },
+          "edad_media" : {
+            "type" : "long"
+          },
+          "esperanza_vida" : {
+            "type" : "long"
+          },
+          "fallecimiento_cardiovascular" : {
+            "type" : "long"
+          },
+          "fumadores_hombres" : {
+            "type" : "long"
+          },
+          "fumadores_mujeres" : {
+            "type" : "long"
+          },
+          "indice_desarrollo_humano" : {
+            "type" : "long"
+          },
+          "indice_rigurosidad" : {
+            "type" : "long"
+          },
+          "nuevos_casos" : {
+            "type" : "long"
+          },
+          "nuevos_casos_por_millon" : {
+            "type" : "long"
+          },
+          "nuevos_casos_por_millon_suavizado" : {
+            "type" : "long"
+          },
+          "nuevos_casos_suavizado" : {
+            "type" : "long"
+          },
+          "nuevos_fallecimientos" : {
+            "type" : "long"
+          },
+          "nuevos_fallecimientos_por_millon" : {
+            "type" : "long"
+          },
+          "nuevos_fallecimientos_por_millon_suavizado" : {
+            "type" : "long"
+          },
+          "nuevos_fallecimientos_suavizados" : {
+            "type" : "long"
+          },
+          "nuevos_test" : {
+            "type" : "long"
+          },
+          "nuevos_test_porcentaje" : {
+            "type" : "long"
+          },
+          "nuevos_test_porcentaje_suavizado" : {
+            "type" : "long"
+          },
+          "nuevos_test_suavizado" : {
+            "type" : "long"
+          },
+          "pacientes_hospitalizados" : {
+            "type" : "long"
+          },
+          "pacientes_hospitalizados_por_millon" : {
+            "type" : "long"
+          },
+          "pacientes_hospitalizados_semana" : {
+            "type" : "long"
+          },
+          "pacientes_hospitalizados_semana_por_millom" : {
+            "type" : "long"
+          },
+          "pacientes_uci" : {
+            "type" : "long"
+          },
+          "pacientes_uci_por_millon" : {
+            "type" : "long"
+          },
+          "pacientes_uci_semana" : {
+            "type" : "long"
+          },
+          "pacientes_uci_semana_por_millon" : {
+            "type" : "long"
+          },
+          "personas_totalmente_vacunadas" : {
+            "type" : "long"
+          },
+          "personas_totalmente_vacunadas_porcentaje" : {
+            "type" : "long"
+          },
+          "personas_vacunadas" : {
+            "type" : "long"
+          },
+          "personas_vacunadas_porcentaje" : {
+            "type" : "long"
+          },
+          "pib_per_capita" : {
+            "type" : "long"
+          },
+          "poblacion" : {
+            "type" : "long"
+          },
+          "poblacion_diabetes" : {
+            "type" : "long"
+          },
+          "poblacion_facilidades_higienicas" : {
+            "type" : "long"
+          },
+          "poblacion_mayor65" : {
+            "type" : "long"
+          },
+          "poblacion_mayor70" : {
+            "type" : "long"
+          },
+          "poblacion_pobreza_extrema" : {
+            "type" : "long"
+          },
+          "tasa_negativos" : {
+            "type" : "long"
+          },
+          "tasa_positivos" : {
+            "type" : "long"
+          },
+          "tasa_reproduccion" : {
+            "type" : "long"
+          },
+          "total_casos" : {
+            "type" : "long"
+          },
+          "total_casos_por_millon" : {
+            "type" : "long"
+          },
+          "total_dosis_vacunas" : {
+            "type" : "long"
+          },
+          "total_dosis_vacunas_porcentaje" : {
+            "type" : "long"
+          },
+          "total_fallecimientos" : {
+            "type" : "long"
+          },
+          "total_fallecimientos_por_millon" : {
+            "type" : "long"
+          },
+          "total_test" : {
+            "type" : "long"
+          },
+          "total_test_porcentaje" : {
+            "type" : "long"
+          },
+          "unidad_test" : {
+            "type" : "text"
+          }
+        }
+      },
+      "iso_code" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "iso_especial" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "pais" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "path" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      }
+    }
+  }
+}

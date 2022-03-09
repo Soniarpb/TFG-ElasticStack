@@ -1,0 +1,92 @@
+PUT _template/pacientes_diagnostico_template
+{
+  "index_patterns": [
+    "pacientes_diagnostico*"
+  ],
+  "settings": {
+    "index": {
+      "number_of_shards": "1",
+      "number_of_replicas": "0"
+    }
+  },
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "string_fields": {
+          "match": "*",
+          "match_mapping_type": "string",
+          "mapping": {
+            "fields": {
+              "keyword": {
+                "ignore_above": 256,
+                "type": "keyword"
+              }
+            },
+            "norms": false,
+            "type": "text"
+          }
+        }
+      }
+    ],
+    "properties" : {
+      "@timestamp" : {
+        "type" : "date"
+      },
+      "año_diagnostico" : {
+        "type" : "integer"
+      },
+      "año_fallecimiento" : {
+        "type" : "integer"
+      },
+      "año_nacimiento" : {
+        "type" : "integer"
+      },
+      "dias_desde_diagnostico" : {
+        "type" : "integer"
+      },
+      "dias_desde_nacimiento" : {
+        "type" : "integer"
+      },
+      "dias_desde_paso_enfermedad" : {
+        "type" : "integer"
+      },
+      "dias_desde_recurrio_enfermedad" : {
+        "type" : "integer"
+      },
+      "dias_desde_ultimo_seguimiento" : {
+        "type" : "integer"
+      },
+      "dias_hasta_fallecimiento" : {
+        "type" : "integer"
+      },
+      "edad_al_indexado" : {
+        "type" : "integer"
+      },
+      "edad_paciente" : {
+        "type" : "integer"
+      },
+      "edad_diagnostico" : {
+        "type" : "integer"
+      },
+      "figo_año_edicion" : {
+        "type" : "integer"
+      },
+      "tratamiento" : {
+        "properties" : {
+          "dias_para_empezar_tratamiento" : {
+            "type" : "integer"
+          },
+          "dias_para_finalizar_tratamiento" : {
+            "type" : "integer"
+          },
+          "dosis" : {
+            "type" : "integer"
+          },
+          "numero_ciclos" : {
+            "type" : "integer"
+          }
+        }
+      }
+    }
+  }
+}

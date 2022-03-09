@@ -1,0 +1,37 @@
+PUT _template/pacientes_historial_familiar_template
+{
+  "index_patterns": [
+    "pacientes_historial_familiar*"
+  ],
+  "settings": {
+    "index": {
+      "number_of_shards": "1",
+      "number_of_replicas": "0"
+    }
+  },
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "string_fields": {
+          "match": "*",
+          "match_mapping_type": "string",
+          "mapping": {
+            "fields": {
+              "keyword": {
+                "ignore_above": 256,
+                "type": "keyword"
+              }
+            },
+            "norms": false,
+            "type": "text"
+          }
+        }
+      }
+    ],
+    "properties" : {
+      "@timestamp" : {
+        "type" : "date"
+      }
+    }
+  }
+}

@@ -1,0 +1,302 @@
+PUT _template/centros_template
+{
+  "index_patterns": [
+    "centros*"
+  ],
+  "settings": {
+    "index": {
+      "lifecycle": {
+        "name": "year-rollover-policy",
+        "rollover_alias": "centros"
+      },
+      "number_of_shards": "1",
+      "number_of_replicas": "0"
+    }
+  },
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "message_field": {
+          "path_match": "message",
+          "match_mapping_type": "string",
+          "mapping": {
+            "norms": false,
+            "type": "text"
+          }
+        }
+      },
+      {
+        "string_fields": {
+          "match": "*",
+          "match_mapping_type": "string",
+          "mapping": {
+            "fields": {
+              "keyword": {
+                "ignore_above": 256,
+                "type": "keyword"
+              }
+            },
+            "norms": false,
+            "type": "text"
+          }
+        }
+      }
+    ],
+    "properties": {
+      "@timestamp": {
+        "type": "date"
+      },
+      "@version": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "CCN": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "centro": {
+        "properties": {
+          "cod_autonomico": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "dependencia_funcional": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "email": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "especialidades": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "especialidad": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "fax": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "grupo_dependencia_funcional": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "nombre": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "telefono": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "tipo": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "url": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      "env": {
+        "type": "keyword"
+      },
+      "host": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "localizacion": {
+        "properties": {
+          "CCAA": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "lat" : {
+            "type" : "float"
+          },
+          "lat-lon": {
+            "type": "geo_point"
+          },
+          "lon" : {
+            "type" : "float"
+          },
+          "codigo_postal": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "id": {
+            "type": "keyword"
+          },
+          "municipio": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "numero": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "provincia": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "tipo_via": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "via": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      "path": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      }
+    }
+  },
+  "aliases": {
+    "centros_hospitales": {
+      "filter": {
+        "term": {
+          "env": "hospitales"
+        }
+      }
+    },
+    "centros_proovedores_sanitarios": {
+      "filter": {
+        "term": {
+          "env": "proveedores"
+        }
+      }
+    },
+    "centros_servicios_sin_organizacion": {
+      "filter": {
+        "term": {
+          "env": "servicios"
+        }
+      }
+    },
+    "centros_establecimientos": {
+      "filter": {
+        "term": {
+          "env": "establecimientos"
+        }
+      }
+    }
+  }
+}

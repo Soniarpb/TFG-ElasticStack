@@ -1,0 +1,215 @@
+PUT _template/covid19_vacunacion_template
+{
+  "index_patterns": [
+    "covid19_vacunacion*"
+  ],
+  "settings": {
+    "index": {
+      "number_of_shards": "1",
+      "number_of_replicas": "0"
+    }
+  },
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "message_field": {
+          "path_match": "message",
+          "match_mapping_type": "string",
+          "mapping": {
+            "norms": false,
+            "type": "text"
+          }
+        }
+      },
+      {
+        "string_fields": {
+          "match": "*",
+          "match_mapping_type": "string",
+          "mapping": {
+            "fields": {
+              "keyword": {
+                "ignore_above": 256,
+                "type": "keyword"
+              }
+            },
+            "norms": false,
+            "type": "text"
+          }
+        }
+      }
+    ],
+    "properties": {
+      "@timestamp": {
+        "type": "date"
+      },
+      "@version": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "agent": {
+        "properties": {
+          "ephemeral_id": {
+            "type": "keyword"
+          },
+          "hostname": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "id": {
+            "type": "keyword"
+          },
+          "name": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "type": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "version": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      "ecs": {
+        "properties": {
+          "version": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      "evento": {
+        "properties": {
+          "actualizado": {
+            "type": "date"
+          }
+        }
+      },
+      "host": {
+        "properties": {
+          "name": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      "identificador": {
+        "type": "keyword"
+      },
+      "informacion": {
+        "properties": {
+          "dosis_vacunas_diarias": {
+            "type": "long"
+          },
+          "dosis_vacunas_diarias_por_millon": {
+            "type": "long"
+          },
+          "personas_totalmente_vacunadas": {
+            "type": "long"
+          },
+          "personas_totalmente_vacunadas_porcentaje": {
+            "type": "long"
+          },
+          "personas_vacunadas": {
+            "type": "long"
+          },
+          "personas_vacunadas_porcentaje": {
+            "type": "long"
+          },
+          "total_dosis_vacunas": {
+            "type": "long"
+          },
+          "total_dosis_vacunas_porcentaje": {
+            "type": "long"
+          }
+        }
+      },
+      "input": {
+        "properties": {
+          "type": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      "iso_code": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "iso_especial": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "pais": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "tags": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      }
+    }
+  }
+}

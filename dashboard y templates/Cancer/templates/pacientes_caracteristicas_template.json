@@ -1,0 +1,67 @@
+PUT _template/pacientes_caracteristicas_template
+{
+  "index_patterns": [
+    "pacientes_caracteristicas*"
+  ],
+  "settings": {
+    "index": {
+      "number_of_shards": "1",
+      "number_of_replicas": "0"
+    }
+  },
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "string_fields": {
+          "match": "*",
+          "match_mapping_type": "string",
+          "mapping": {
+            "fields": {
+              "keyword": {
+                "ignore_above": 256,
+                "type": "keyword"
+              }
+            },
+            "norms": false,
+            "type": "text"
+          }
+        }
+      }
+    ],
+    "properties" : {
+      "@timestamp" : {
+        "type" : "date"
+      },
+      "altura" : {
+        "type" : "long"
+      },
+      "año_dejo_fumar" : {
+        "type" : "integer"
+      },
+      "año_empezo_fumar" : {
+        "type" : "integer"
+      },
+      "años_fumando" : {
+        "type" : "integer"
+      },
+      "cigarros_al_dia" : {
+        "type" : "integer"
+      },
+      "consumo_diario_alcohol" : {
+        "type" : "integer"
+      },
+      "consumo_semanal_alcohol" : {
+        "type" : "integer"
+      },
+      "imc" : {
+        "type" : "long"
+      },
+      "paquetes_tabaco_anual" : {
+        "type" : "integer"
+      },
+      "peso" : {
+        "type" : "long"
+      }
+    }
+  }
+}

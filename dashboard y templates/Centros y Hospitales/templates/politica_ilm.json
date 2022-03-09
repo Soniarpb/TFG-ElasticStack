@@ -1,0 +1,19 @@
+PUT _ilm/policy/year-rollover-policy
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "min_age": "0ms",
+        "actions": {
+          "rollover": {
+            "max_primary_shard_size": "50gb",
+            "max_age": "365d"
+          },
+          "set_priority": {
+            "priority": 100
+          }
+        }
+      }
+    }
+  }
+}

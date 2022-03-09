@@ -1,0 +1,11 @@
+### DATOS MUNDIALES CANCER
+- pipeline.id: cancer_pipeline
+  path.config: "/usr/share/logstash/pipeline/cancer_pipeline.conf"
+### HOSPITALES Y CENTROS EN ESPAÑA
+- pipeline.id: hospitals_merge_pipeline
+  path.config: "/usr/share/logstash/pipeline/hospitals_merge_pipeline.conf"
+- pipeline.id: hospitals_pipeline
+  path.config: "/usr/share/logstash/pipeline/hospitals_pipeline.conf"
+### COVID19 FALLECIMIENTOS Y VAUNACION MUNDIAL
+- pipeline.id: covid_pipeline
+  path.config: "/usr/share/logstash/pipeline/covid_pipeline.conf"
