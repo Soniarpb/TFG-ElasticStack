@@ -137,7 +137,7 @@ Pasado un tiempo, Elasticsearch y Kibana habran arrancado. Podemos comprobar que
   - Contraseña: changeme
 
 Tras esto accederemos a Kibana en el http://localhost:5601/ con las mismas credenciales y pasaremos a cargar los templates y políticas de rotado desde el Dev Tools, copiando los ficheros json y dándoles al play.
-En este punto también es posible crear espacios y usuarios. Sino por defecto con el usuario elastic (admin), tendremos acceso a todo.
+En este punto también es posible crear espacios y usuarios. Si no, por defecto con el usuario elastic (admin), tendremos acceso a todo.
 
 ![Dev Tools](https://github.com/Soniarpb/TFG-ElasticStack/blob/main/Imagenes-readme/DevTools.png)
 
